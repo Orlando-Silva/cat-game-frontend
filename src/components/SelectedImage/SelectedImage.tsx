@@ -6,7 +6,7 @@ interface SelectedImageProps {
 
 const SelectedImage: React.FunctionComponent<SelectedImageProps> = ({ source }) => {
     return (
-      <img width="400" height="400" src={source}></img>     
+      <img alt='Your cat of choice' width="400" height="400" src={source}></img>     
     )
   };
   
