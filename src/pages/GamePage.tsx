@@ -34,7 +34,6 @@ const GamePage: React.FunctionComponent = () => {
         <div className='flex flex-col justify-center items-center gap-4'>
           <GameTitle></GameTitle>
           <div className=' border border-white/5 bg-slate-800/25 rounded-xl p-6 text-center items-center'>
-            {/* Using AND operator to avoid the broken image void that would be displayed if the user selected a phrase before an image*/}
             {selectedCat && selectedPhrase ? (
               <div className="flex flex-col gap-2">
                 <SelectedImage source={selectedCat}></SelectedImage>
