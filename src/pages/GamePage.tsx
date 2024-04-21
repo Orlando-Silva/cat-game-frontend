@@ -29,12 +29,22 @@ const GamePage: React.FunctionComponent = () => {
     }, []);
 
     return (
+      
       <div className='flex flex-col justify-center gap-8 h-dvh'>
         <div className='flex flex-col justify-center items-center gap-4'>
           <GameTitle></GameTitle>
-          <div className=' border border-white/5 bg-slate-800/25 rounded-xl p-6 items-center flex flex-col gap-2'>
-            <SelectedImage source={selectedCat}></SelectedImage>
-            <SelectedPhrase phrase={selectedPhrase}></SelectedPhrase>
+          <div className=' border border-white/5 bg-slate-800/25 rounded-xl p-6 text-center items-center'>
+            {selectedCat && selectedPhrase ? (
+              <div className="flex flex-col gap-2">
+                <SelectedImage source={selectedCat}></SelectedImage>
+                <SelectedPhrase phrase={selectedPhrase}></SelectedPhrase>
+              </div>
+            ) : (
+              <div className="text-white">
+                Escolha um gato e uma frase para começar!
+              </div>
+            )}
+
           </div>  
         </div>
         <CatImageList images={images} onSelectCat={(image: string) => setSelectedCat(image) }></CatImageList>
