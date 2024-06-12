@@ -1,11 +1,16 @@
 import React from 'react';
 import GamePage from './pages/GamePage';
+import HomePage from './pages/HomePage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App: React.FunctionComponent = () => {
   return (
-    <div className='h-dvh antialiased text-slate-400 bg-slate-900'>
-        <GamePage></GamePage>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/match" element={<GamePage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
