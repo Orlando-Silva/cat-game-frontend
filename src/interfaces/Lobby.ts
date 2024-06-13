@@ -7,10 +7,15 @@ export interface CreateLobbyResponse {
 }
 
 export interface JoinLobbyRequest {
-    userName: string;
+    username: string;
 }
 
 export interface JoinLobbyResponse {
+    roomId: string;
+    players: string[];
+}
+
+export interface GetPlayersResponse {
     roomId: string;
     players: string[];
 }

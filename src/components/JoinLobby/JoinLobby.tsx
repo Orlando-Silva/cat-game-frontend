@@ -2,16 +2,27 @@ import React, { useState } from 'react';
 import { join } from '../../services/lobby.service';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import { useNavigate } from "react-router-dom";
 
 const JoinLobby: React.FunctionComponent = () => {
   const [username, setUsername] = useState<string>();
   const [roomId, setRoomId] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const navigate = useNavigate();
 
   const joinLobby = async () => {
-      await join(roomId!, {
-        userName: username!
-      }).catch((error) => {
+    
+      join(roomId!, {
+        username: username!
+      }).then((response) => {
+          navigate(`/lobby/${response.data.roomId}`,  {
+              state: {
+                players: [...response.data.players, username],
+                username: username
+              }
+          });
+      })
+      .catch((error) => {
         if(error.response?.data?.message) {
           setErrorMessage(error.response.data.message)
           return;
@@ -19,8 +30,6 @@ const JoinLobby: React.FunctionComponent = () => {
         setErrorMessage('error while joining lobby')
         
       });
-
-      console.log('TODO: Call Lobby Page');
   }
 
 

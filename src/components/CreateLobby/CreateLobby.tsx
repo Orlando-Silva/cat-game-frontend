@@ -2,14 +2,21 @@ import React, { useState } from 'react';
 import { create } from '../../services/lobby.service';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import { useNavigate } from 'react-router-dom';
 
 const CreateLobby: React.FunctionComponent = () => {
     
     const [username, setUsername] = useState<string>();
+    const navigate = useNavigate();
 
     const createLobby = async () => {
-      await create({ username: username! });
-      console.log('TODO: Call Lobby Page');
+      const response = await create({ username: username! });
+      navigate(`/lobby/${response.data.roomId}`, {
+        state: {
+          players: [username],
+          username: username
+        }
+    });
     }
 
     return (
