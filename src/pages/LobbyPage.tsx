@@ -10,7 +10,6 @@ const LobbyPage: React.FunctionComponent = () => {
     const location = useLocation();  
     const { roomId } = useParams();
     const [players, setPlayers] = useState<string[]>([])
-    // const [players, setPlayers] = useState<string[]>(location.state.players)
 
     const stompClient = useStompClient();
 
