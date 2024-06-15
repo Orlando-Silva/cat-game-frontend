@@ -1,26 +1,26 @@
 {
-  "ALT": {
-    "CAT_LOGO": "A random cute cat"
-  },
-  "HOME": {
-    "JOIN_LOBBY": "Join a lobby",
-    "CREATE_LOBBY": "Create a lobby"
-  },
-  "LOBBY": {
-    "COPY_ROOM_ID": "Copy room id",
-    "START_GAME": "Start game",
-    "TABLE": {
-        "AVALIABLE_SLOT": "Waiting for player"
+    "ALT": {
+        "CAT_LOGO": "A random cute cat"
+    },
+    "HOME": {
+        "JOIN_LOBBY": "Join a lobby",
+        "CREATE_LOBBY": "Create a lobby"
+    },
+    "LOBBY": {
+        "COPY_ROOM_ID": "Copy room id",
+        "START_GAME": "Start game",
+        "TABLE": {
+            "AVALIABLE_SLOT": "Waiting for player"
+        }
+    },
+    "JOIN_LOBBY": {
+        "USERNAME_PLACEHOLDER": "Choose your name",
+        "ROOM_ID_PLACEHOLDER": "Room Id",
+        "BUTTON": "Join lobby",
+        "ERROR": "Error while joining lobby. Try again later!"
+    },
+    "CREATE_LOBBY": {
+        "USERNAME_PLACEHOLDER": "Choose your name",
+        "BUTTON": "Create lobby"
     }
-  },
-  "JOIN_LOBBY": {
-    "USERNAME_PLACEHOLDER": "Choose your name",
-    "ROOM_ID_PLACEHOLDER": "Room Id",
-    "BUTTON": "Join lobby",
-    "ERROR": "Error while joining lobby. Try again later!"
-  },
-  "CREATE_LOBBY": {
-    "USERNAME_PLACEHOLDER": "Choose your name",
-    "BUTTON": "Create lobby"
-  }
 }

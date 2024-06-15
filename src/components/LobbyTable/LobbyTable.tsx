@@ -1,37 +1,18 @@
 import React from 'react';
-import LobbyTableData from '../LobbyTableData/LobbyTableData';
-import { useIntl } from 'react-intl';
+import LobbyTablePlayers from '../LobbyTablePlayersSlot/LobbyTablePlayersSlot';
+import LobbyTableAvaliableSlots from '../LobbyTableAvaliableSlot/LobbyTablePlayersAvaliable';
 
 export interface LobbyTableProps {
-  players: string[];
+    players: string[]
 }
 
-const LobbyTable: React.FunctionComponent<LobbyTableProps> = ({ 
-  players
-}) => {
-    const intl = useIntl();
-    const remainingSlots = 8 - players.length;
+const LobbyTable: React.FunctionComponent<LobbyTableProps> = ({ players }) => (
+  <div className="flex justify-center">
+    <div className="grid grid-cols-4  text-sky-50 font-semibold p-10 gap-10">
+      <LobbyTablePlayers players={players} />
+      <LobbyTableAvaliableSlots players={players} />
+    </div>
+  </div>
+);
 
-    return (
-      <div className='flex justify-center'>
-        <div className="grid grid-cols-4  text-sky-50 font-semibold p-10 gap-10">
-          { 
-            players.map((player, index) => {
-              return (
-                <LobbyTableData slot='filled' label={player} key={index}></LobbyTableData>
-              )
-            })
-          }
-          { 
-            Array.from(Array(remainingSlots).keys()).map((index) => {
-              return (
-                <LobbyTableData slot='avaliable' label={intl.formatMessage({ id: 'LOBBY.TABLE.AVALIABLE_SLOT' })} key={index}></LobbyTableData>
-              )
-            })
-          }
-        </div>
-      </div>
-    )
-  };
-  
-  export default LobbyTable;
+export default LobbyTable;
