@@ -7,8 +7,8 @@ export const create = (request: CreateLobbyRequest): Promise<AxiosResponse<Creat
     return axios.post(`${BASE_URL}`, request);
 }
 
-export const getPlayers = (roomId: string): Promise<AxiosResponse<GetPlayersResponse[]>> => {
-    return axios.get(`${BASE_URL}?roomId=${roomId}`);
+export const getPlayers = (roomId: string): Promise<AxiosResponse<GetPlayersResponse>> => {
+    return axios.get(`${BASE_URL}/${roomId}/players`);
 }
 
 export const join = (roomId: string, request: JoinLobbyRequest): Promise<AxiosResponse<JoinLobbyResponse>> => {

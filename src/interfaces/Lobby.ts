@@ -17,6 +17,6 @@ export interface JoinLobbyResponse {
 
 export interface GetPlayersResponse {
     roomId: string;
-    username: string;
+    players: string[];
 }
 

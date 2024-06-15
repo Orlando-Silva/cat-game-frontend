@@ -15,8 +15,7 @@ const LobbyPage: React.FunctionComponent = () => {
 
     useEffect(() => {
       getPlayers(roomId!).then(response => {
-        const usernames = (response.data.map(player => player.username));
-        setPlayers(usernames);
+        setPlayers(response.data.players);
       })
     }, [])
 
