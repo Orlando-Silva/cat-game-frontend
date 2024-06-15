@@ -1,37 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header/Header';
 import {useLocation, useParams} from 'react-router-dom';
 import LobbyTable from '../components/LobbyTable/LobbyTable';
-import Button from '../components/Button/Button';
-import { useStompClient } from 'react-stomp-hooks';
 import { getPlayers } from '../services/lobby.service';
+import { useIntl } from 'react-intl';
+import Button from '../components/shared/Button/Button';
+import { useLobbyWebSocket } from '../hooks/useLobbyWebSocket';
 
 const LobbyPage: React.FunctionComponent = () => {
+    const intl = useIntl();
     const location = useLocation();  
     const { roomId } = useParams();
     const [players, setPlayers] = useState<string[]>([])
-
-    const stompClient = useStompClient();
 
     useEffect(() => {
       getPlayers(roomId!).then(response => {
         setPlayers(response.data.players);
       })
-    }, [])
+    }, []);
 
-    useEffect(() => {
-      if(stompClient) {
-
-        stompClient.subscribe(`/topic/lobby/${roomId}`, (message) => {
-          if(message.body !== location.state.username) {
-            setPlayers((players) => [...players, message.body]);
-          }
-        })
-
-        stompClient.publish({destination: `/topic/lobby/${roomId}`, body: location.state.username  });
-      }
-    }, [])
-  
+    useLobbyWebSocket(roomId!, location.state.username, players, setPlayers);
+    
     const copyRoomId = (): void => {
       if(roomId) {
         navigator.clipboard.writeText(roomId)
@@ -43,12 +31,11 @@ const LobbyPage: React.FunctionComponent = () => {
     }
 
     return (
-      <>
-        <Header></Header>
+      <div className='flex flex-col items-center gap-10'>
         <LobbyTable players={players}></LobbyTable>
-        <Button label='Copy room id' onClick={() => copyRoomId()}></Button>
-        <Button label='Start game' onClick={() => startGame()}></Button>
-      </>
+        <Button label={intl.formatMessage({ id: 'LOBBY.COPY_ROOM_ID' })} onClick={() => copyRoomId()}></Button>
+        <Button label={intl.formatMessage({ id: 'LOBBY.START_GAME' })} onClick={() => startGame()}></Button>
+      </div>
     )
   };
   
