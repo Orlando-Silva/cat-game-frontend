@@ -4,24 +4,33 @@ import {useLocation, useParams} from 'react-router-dom';
 import LobbyTable from '../components/LobbyTable/LobbyTable';
 import Button from '../components/Button/Button';
 import { useStompClient } from 'react-stomp-hooks';
+import { getPlayers } from '../services/lobby.service';
 
 const LobbyPage: React.FunctionComponent = () => {
     const location = useLocation();  
     const { roomId } = useParams();
-    const [players, setPlayers] = useState<string[]>(location.state.players)
+    const [players, setPlayers] = useState<string[]>([])
+    // const [players, setPlayers] = useState<string[]>(location.state.players)
 
     const stompClient = useStompClient();
 
     useEffect(() => {
+      getPlayers(roomId!).then(response => {
+        const usernames = (response.data.map(player => player.username));
+        setPlayers(usernames);
+      })
+    }, [])
+
+    useEffect(() => {
       if(stompClient) {
-        stompClient.publish({destination: `/topic/lobby/${roomId}`, body: location.state.username  });
 
         stompClient.subscribe(`/topic/lobby/${roomId}`, (message) => {
-          if(message && message.body !== location.state.username) {
-            console.log(players)
-            setPlayers([...players, message.body]);
+          if(message.body !== location.state.username) {
+            setPlayers((players) => [...players, message.body]);
           }
         })
+
+        stompClient.publish({destination: `/topic/lobby/${roomId}`, body: location.state.username  });
       }
     }, [])
   
