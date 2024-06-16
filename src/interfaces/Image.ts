@@ -1,7 +1,6 @@
-
 export interface Image {
-    id: number;
-    createdAt: Date;
-    isActive: boolean;
-    source: string;
+    id: number
+    createdAt: Date
+    isActive: boolean
+    source: string
 }

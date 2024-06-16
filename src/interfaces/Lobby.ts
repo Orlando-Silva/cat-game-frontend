@@ -1,16 +1,21 @@
 export interface CreateLobbyRequest {
-    username: string;
+    username: string
 }
 
 export interface CreateLobbyResponse {
-    roomId: string;
+    roomId: string
 }
 
 export interface JoinLobbyRequest {
-    userName: string;
+    username: string
 }
 
 export interface JoinLobbyResponse {
-    roomId: string;
-    players: string[];
+    roomId: string
+    players: string[]
+}
+
+export interface GetPlayersResponse {
+    roomId: string
+    players: string[]
 }
