@@ -42,15 +42,12 @@ const CRTWrapper: React.FunctionComponent<CRTWrapperProps> = ({ children }) => {
             text!.appendChild(span);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      frame = 0;
-      setTimeout(() => {
-                main!.classList.add('on');
-                main!.classList.remove('off');
+    setTimeout(() => {
+              main!.classList.add('on');
+              main!.classList.remove('off');
 
-                animate();
-      }, 1000);
-    });
+              animate();
+    }, 1000);
   }, []);
 
   return (
