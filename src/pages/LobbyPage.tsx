@@ -38,6 +38,7 @@ const LobbyPage: React.FunctionComponent = () => {
         onClick={() => copyRoomId()}
       />
       <Button
+        disabled={players.length <= 1}
         label={intl.formatMessage({ id: 'LOBBY.START_GAME' })}
         onClick={() => startGame()}
       />
