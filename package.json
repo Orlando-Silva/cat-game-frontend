@@ -29,8 +29,7 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "lint": "npx eslint .",
-        "lint:fix": "npx eslint . --fix",
-        "prepare": "husky install"
+        "lint:fix": "npx eslint . --fix"
     },
     "eslintConfig": {
         "extends": [
