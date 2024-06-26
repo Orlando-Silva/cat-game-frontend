@@ -1,26 +1,25 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useStompClient } from 'react-stomp-hooks';
+import { getPlayers } from '../services/lobby.service';
 
 export const useLobbyWebSocket = (
   roomId: string,
-  username: string,
   players: string[],
   setPlayers: Dispatch<SetStateAction<string[]>>,
 ): void => {
   const stompClient = useStompClient();
 
   useEffect(() => {
-    if (stompClient?.connected) {
-      stompClient.subscribe(`/topic/lobby/${roomId}`, (message) => {
-        if (!players.includes(message.body)) {
-          setPlayers((oldPlayers) => [...oldPlayers, message.body]);
-        }
-      });
+    getPlayers(roomId!).then((response) => {
+      setPlayers(response.data.players);
 
-      stompClient.publish({
-        destination: `/topic/lobby/${roomId}`,
-        body: username,
-      });
-    }
+      if (stompClient?.connected) {
+        stompClient.subscribe(`/topic/lobby/${roomId}`, (message) => {
+          if (!players.includes(message.body)) {
+            setPlayers((oldPlayers) => [...oldPlayers, message.body]);
+          }
+        });
+      }
+    });
   }, [stompClient?.connected]);
 };

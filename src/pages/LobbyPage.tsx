@@ -1,24 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import LobbyTable from '../components/LobbyTable/LobbyTable';
-import { getPlayers } from '../services/lobby.service';
 import Button from '../components/shared/Button/Button';
 import { useLobbyWebSocket } from '../hooks/useLobbyWebSocket';
 
 const LobbyPage: React.FunctionComponent = () => {
   const intl = useIntl();
-  const location = useLocation();
   const { roomId } = useParams();
   const [players, setPlayers] = useState<string[]>([]);
 
-  useEffect(() => {
-    getPlayers(roomId!).then((response) => {
-      setPlayers(response.data.players);
-    });
-  }, []);
-
-  useLobbyWebSocket(roomId!, location.state.username, players, setPlayers);
+  useLobbyWebSocket(roomId!, players, setPlayers);
 
   const copyRoomId = (): void => {
     if (roomId) {

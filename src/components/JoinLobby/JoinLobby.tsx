@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
+import { useStompClient } from 'react-stomp-hooks';
 import { join } from '../../services/lobby.service';
 import Button from '../shared/Button/Button';
 import Input from '../shared/Input/Input';
@@ -10,6 +11,7 @@ const JoinLobby: React.FunctionComponent = () => {
   const [username, setUsername] = useState<string>();
   const [roomId, setRoomId] = useState<string>();
   const [errorMessage, setErrorMessage] = useState<string>();
+  const stompClient = useStompClient();
   const navigate = useNavigate();
 
   const joinLobby = async (): Promise<void> => {
@@ -20,7 +22,14 @@ const JoinLobby: React.FunctionComponent = () => {
       return;
     }
 
-    navigate(`/lobby/${response.data.roomId}`, { state: { username } });
+    if (stompClient?.connected) {
+      stompClient.publish({
+        destination: `/topic/lobby/${roomId}`,
+        body: username,
+      });
+    }
+
+    navigate(`/lobby/${response.data.roomId}`);
   };
 
   return (
