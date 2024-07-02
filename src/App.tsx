@@ -32,6 +32,10 @@ const App: React.FunctionComponent = () => {
                 path="/lobby/:roomId"
                 element={<LobbyPage />}
               />
+              <Route
+                path="/lobby/:roomIdFromURL/shared-link"
+                element={<HomePage />}
+              />
             </Routes>
           </BrowserRouter>
         </CRTWrapper>

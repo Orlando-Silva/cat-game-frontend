@@ -3,16 +3,19 @@ import React from 'react';
 export interface InputProps {
     placeholder: string
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    value? : string
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
   placeholder,
   onChange,
+  value,
 }) => (
   <input
     data-testid="cat-input"
     type="text"
     placeholder={placeholder}
+    defaultValue={value}
     onChange={(event) => onChange(event)}
     className="
         bg-primary-900

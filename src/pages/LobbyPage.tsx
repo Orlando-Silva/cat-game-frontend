@@ -14,7 +14,7 @@ const LobbyPage: React.FunctionComponent = () => {
 
   const copyRoomId = (): void => {
     if (roomId) {
-      navigator.clipboard.writeText(roomId);
+      navigator.clipboard.writeText(`${process.env.REACT_APP_CAT_FRONTEND_BASE_URL}/lobby/${roomId}/shared-link`);
     }
   };
 
