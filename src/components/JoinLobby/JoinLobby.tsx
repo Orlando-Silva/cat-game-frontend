@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { useStompClient } from 'react-stomp-hooks';
 import { join } from '../../services/lobby.service';
@@ -13,6 +13,7 @@ const JoinLobby: React.FunctionComponent = () => {
   const [errorMessage, setErrorMessage] = useState<string>();
   const stompClient = useStompClient();
   const navigate = useNavigate();
+  const { roomIdFromURL } = useParams();
 
   const joinLobby = async (): Promise<void> => {
     const response = await join(roomId!, { username: username! });
@@ -32,6 +33,10 @@ const JoinLobby: React.FunctionComponent = () => {
     navigate(`/lobby/${response.data.roomId}`);
   };
 
+  useEffect(() => {
+    setRoomId(roomIdFromURL);
+  }, []);
+
   return (
     <div className="flex flex-col gap-4 justify-center">
       <div className="flex flex-col gap-12 justify-center">
@@ -43,9 +48,8 @@ const JoinLobby: React.FunctionComponent = () => {
         />
         <Input
           onChange={(event) => setRoomId(event.target.value)}
-          placeholder={intl.formatMessage({
-            id: 'JOIN_LOBBY.ROOM_ID_PLACEHOLDER',
-          })}
+          value={roomIdFromURL}
+          placeholder={intl.formatMessage({ id: 'JOIN_LOBBY.ROOM_ID_PLACEHOLDER' })}
         />
       </div>
       <div className="flex flex-row justify-center">{errorMessage}</div>
