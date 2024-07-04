@@ -1,19 +1,22 @@
 import React from 'react';
 
 export interface ButtonProps {
+    testId?: string
     label: string
     disabled?: boolean
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 const Button: React.FunctionComponent<ButtonProps> = ({
+  testId = '',
   label,
   disabled = false,
   onClick,
 }) => (
   <button
+    data-testid={testId}
     type="button"
-    disabled={disabled}
+    disabled={disabled ?? undefined}
     onClick={(e) => onClick(e)}
     className="
           bg-primary-900
